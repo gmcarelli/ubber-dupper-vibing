@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import ollama
 from typing import List, Dict, Any
-from logger_config import log
+from .logger_config import log
 
 
 @dataclass
@@ -17,7 +17,7 @@ class OllamaConnectionError(Exception):
 class OllamaClient:
 
     _client: ollama.Client
-    options: ParameterOptions = {"temperature": 0.0, "top_p": 0.9}
+    options: ParameterOptions = ParameterOptions(temperature=0.0, top_p=0.9)
 
     def connect_to_host(self, host_url: str) -> "OllamaClient":
         try:
@@ -64,12 +64,12 @@ class OllamaClient:
             log.error(f"Erro ao listar os modelos: {e}")
             return ""
 
-    def chat(self, model_name: str, message: str) -> str:
+    def chat(self, model_name: str, messages: List[Dict[str, Any]]) -> str:
         try:
             log.info(f"Enviando prompt para o modelo '{model_name}'...")
             response = self._client.chat(
                 model=model_name,
-                messages=[{"role": "user", "content": message}],
+                messages=messages,
                 options={
                     "temperature": self.options.temperature,
                     "top_p": self.options.top_p,
