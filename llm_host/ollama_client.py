@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import ollama
 from typing import List, Dict, Any
-from logger_config import log
+from .logger_config import log
 
 
 @dataclass
@@ -17,7 +17,7 @@ class OllamaConnectionError(Exception):
 class OllamaClient:
 
     _client: ollama.Client
-    options: ParameterOptions = {"temperature": 0.0, "top_p": 0.9}
+    options: ParameterOptions = ParameterOptions(temperature=0.0, top_p=0.9)
 
     def connect_to_host(self, host_url: str) -> "OllamaClient":
         try:

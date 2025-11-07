@@ -1,12 +1,6 @@
 import os
-import sys
 from pathlib import Path
 from typing import Dict, Any, List
-
-# Adiciona o diretório raiz do projeto ao sys.path
-# Isso permite que o módulo llm-host seja encontrado
-project_root = Path(__file__).parent.parent
-sys.path.append(str(project_root))
 
 from llm_host.ollama_client import OllamaClient
 
@@ -26,6 +20,7 @@ def process_files(
         client (OllamaClient): O cliente Ollama a ser usado.
         guidelines_file (str, optional): O nome do arquivo de diretrizes. Defaults to "fleubers.txt".
     """
+    project_root = Path(os.getcwd())
     # Garante que a pasta de resultados exista
     results_dir = project_root / "results"
     results_dir.mkdir(exist_ok=True)
@@ -42,7 +37,6 @@ def process_files(
     guidelines_content = guidelines_path.read_text(encoding="utf-8")
 
     # Prepara o histórico de mensagens inicial com as diretrizes
-    # Usaremos o papel 'system' para as diretrizes, que é uma prática comum
     base_messages: List[Dict[str, Any]] = [
         {"role": "system", "content": guidelines_content}
     ]
