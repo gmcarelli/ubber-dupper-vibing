@@ -5,7 +5,7 @@ class HostConnector(Protocol):
     def connect(self, host_url: str) -> None:
         ...
 
-class LLMTools(Protocol):
+class LLMClientInterface(Protocol):
     """Defines the interface for interacting with LLM models."""
     def list_models(self) -> str:
         ...

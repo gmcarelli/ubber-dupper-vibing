@@ -1,6 +1,6 @@
 from typing import List, Dict, Any
 import ollama
-from .protocols import HostConnector, LLMTools
+from .protocols import HostConnector, LLMClientInterface
 import logging
 
 # Constants
@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 class OllamaConnectionError(Exception):
     pass
 
-class OllamaClient(HostConnector, LLMTools):
+class OllamaClient(HostConnector, LLMClientInterface):
     """Concrete implementation of HostConnector and LLMTools for Ollama."""
 
     def __init__(self):

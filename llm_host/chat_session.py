@@ -1,11 +1,11 @@
 from typing import List, Dict, Any
-from .protocols import LLMTools
+from .protocols import LLMClientInterface
 
 class ChatSession:
     """Manages a chat session with an LLM, maintaining a single-turn history."""
 
-    def __init__(self, llm_tools: LLMTools, model_name: str):
-        self.llm_tools: LLMTools = llm_tools
+    def __init__(self, llm_tools: LLMClientInterface, model_name: str):
+        self.llm_tools: LLMClientInterface = llm_tools
         self.model_name: str = model_name
         self._history: List[Dict[str, Any]] = []
 
