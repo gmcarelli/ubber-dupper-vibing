@@ -1,21 +1,17 @@
 from typing import List, Dict, Any
 import ollama
 from .protocols import HostConnector, LLMClientInterface
-import logging
+from .logger_config import log
 
 # Constants
 TEMPERATURE: float = 0.0
 TOP_P: float = 0.9
 
-# Basic logging setup
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-log = logging.getLogger(__name__)
-
 class OllamaConnectionError(Exception):
     pass
 
 class OllamaClient(HostConnector, LLMClientInterface):
-    """Concrete implementation of HostConnector and LLMTools for Ollama."""
+    """Concrete implementation of HostConnector and LLMClientInterface for Ollama."""
 
     def __init__(self):
         self._client: ollama.Client | None = None
